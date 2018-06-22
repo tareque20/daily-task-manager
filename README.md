@@ -1,2 +1,13 @@
-# daily-task-manager
-Daily Task Manager using Reactjs, Redux, Nodejs, Webpack
+# Daily Task Manager
+Daily Task Manager using reactjs, redux, nodejs, webpack
+
+# Setup:
+```sh
+$ npm init
+$ npm install
+```
+
+# Run Project:
+```sh
+$ npm start
+```
