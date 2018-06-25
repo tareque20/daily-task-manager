@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {ADD_TASK, TOGGLE_TASK} from '../constants/types.js';;
+import {ADD_TASK, TOGGLE_TASK} from '../constants/types.js';
+
+;
 
 class TaskApp extends React.Component {
     constructor(props) {
@@ -12,10 +14,10 @@ class TaskApp extends React.Component {
 
     render() {
         //console.log(this.props.store.getState());
-        console.log(this.props);
+        //console.log(this.props);
         return (
             <div>
-                <input ref={node => this.input = node} />
+                <input ref={node => this.input = node}/>
                 <button onClick={() => {
                     this.props.dispatch({
                         type: ADD_TASK,
@@ -28,7 +30,18 @@ class TaskApp extends React.Component {
                 </button>
                 <ul>
                     {this.props.state.tasks.map(task =>
-                        <li key={task.id}>
+                        <li key={task.id} onClick={() => {
+                            this.props.dispatch({
+                                type: TOGGLE_TASK,
+                                id: task.id
+                            })
+                        }}
+                            style={{
+                                textDecoration:
+                                    task.completed ?
+                                        'line-through' :
+                                        'none'
+                            }}>
                             {task.text}
                         </li>
                     )}
