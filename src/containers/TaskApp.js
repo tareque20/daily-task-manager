@@ -12,11 +12,11 @@ class TaskApp extends React.Component {
 
     render() {
         //console.log(this.props.store.getState());
-        console.log(this.taskIndex);
+        console.log(this.props);
         return (
             <div>
                 <button onClick={() => {
-                    this.props.store.dispatch({
+                    this.props.dispatch({
                         type: ADD_TASK,
                         text: 'Test',
                         id: this.taskIndex++
@@ -25,7 +25,7 @@ class TaskApp extends React.Component {
                     Add Task
                 </button>
                 <ul>
-                    {this.props.store.getState().tasks.map(task =>
+                    {this.props.state.tasks.map(task =>
                         <li key={task.id}>
                             {task.text}
                         </li>
@@ -36,5 +36,10 @@ class TaskApp extends React.Component {
     }
 }
 
-export default TaskApp;
+const mapStateToProps = (state) => ({
+    state // prevent negative value
+});
+
+//export default TaskApp;
+export default connect(mapStateToProps)(TaskApp);
 
