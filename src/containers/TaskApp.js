@@ -15,12 +15,14 @@ class TaskApp extends React.Component {
         console.log(this.props);
         return (
             <div>
+                <input ref={node => this.input = node} />
                 <button onClick={() => {
                     this.props.dispatch({
                         type: ADD_TASK,
-                        text: 'Test',
+                        text: this.input.value,
                         id: this.taskIndex++
                     });
+                    this.input.value = "";
                 }}>
                     Add Task
                 </button>
