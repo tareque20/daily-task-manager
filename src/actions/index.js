@@ -22,3 +22,20 @@ export const toggleTask = (id) => {
     };
 };
 
+export const getVisibleTasks = (tasks, filter) => {
+    switch (filter) {
+        case SHOW_ALL:
+            return tasks;
+        case SHOW_COMPLETED:
+            return tasks.filter(
+                t => t.completed
+            );
+        case SHOW_ACTIVE:
+            return tasks.filter(
+                t => !t.completed
+            );
+        default:
+            return tasks;
+    }
+}
+
