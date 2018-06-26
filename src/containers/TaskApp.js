@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import FilterLink from './FilterLink';
-import {ADD_TASK, TOGGLE_TASK, SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED} from '../constants/types.js';
+import {addTask, toggleTask} from '../actions';
+import {SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED} from '../constants/types.js';
 
 
 class TaskApp extends React.Component {
@@ -25,6 +25,8 @@ class TaskApp extends React.Component {
                 return tasks.filter(
                     t => !t.completed
                 );
+            default:
+                return task;
         }
     }
 
@@ -34,11 +36,7 @@ class TaskApp extends React.Component {
             <div>
                 <input ref={node => this.input = node}/>
                 <button onClick={() => {
-                    this.props.dispatch({
-                        type: ADD_TASK,
-                        text: this.input.value,
-                        id: this.taskIndex++
-                    });
+                    this.props.dispatch(addTask(this.input.value, this.taskIndex++));
                     this.input.value = "";
                 }}>
                     Add Task
@@ -46,10 +44,7 @@ class TaskApp extends React.Component {
                 <ul>
                     {(taskList || []).map(task =>
                         <li key={task.id} onClick={() => {
-                            this.props.dispatch({
-                                type: TOGGLE_TASK,
-                                id: task.id
-                            })
+                            this.props.dispatch(toggleTask(task.id))
                         }}
                             style={{
                                 textDecoration:
@@ -87,9 +82,7 @@ class TaskApp extends React.Component {
     }
 }
 
-//export default TaskApp;
 export default connect((state) => ({
-    state,
     tasks: state.tasks,
     visibilityFilter: state.visibilityFilter,
 }))(TaskApp);

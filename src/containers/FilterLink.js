@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {SET_VISIBILITY_FILTER} from '../constants/types.js';
+import {setVisibilityFilter} from '../actions';
 
 
 class FilterLink extends React.Component {
@@ -10,14 +10,12 @@ class FilterLink extends React.Component {
     }
 
     render() {
+        let {filter} = this.props.filter;
         return (
             <a href='#'
                onClick={e => {
                    e.preventDefault();
-                   this.props.dispatch({
-                       type: SET_VISIBILITY_FILTER,
-                       filter: this.props.filter
-                   });
+                   this.props.dispatch(setVisibilityFilter(filter));
                }}
             >
                 {this.props.children}
@@ -26,7 +24,6 @@ class FilterLink extends React.Component {
     }
 }
 
-//export default TaskApp;
 export default connect((state) => ({
     state
 }))(FilterLink);
